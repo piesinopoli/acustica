@@ -2,7 +2,9 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import { useEffect, useRef, useState } from 'react';
-import Chart from "react-apexcharts";
+
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 import Altezza from '../assets/Altezza.svg'
 import Lunghezza from '../assets/Lunghezza.svg'
