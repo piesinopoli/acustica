@@ -24,13 +24,8 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: #fff;
+  background: #121212;
   display: flex;
   flex-direction: column;
   padding: 100px 50px;
@@ -56,7 +51,7 @@ a {
 .svgStanza {width: 100%; object-fit: contain; height: auto;}
 .form { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;}
 .form label, .form span{ font-size: 12px; font-weight: 200;}
-.form input { border-radius: 9999px; border: none; outline: none; padding: 15px 20px; border: 2px solid #3b3b3b; background-color: #3b3b3b; text-align: center;}
+.form input { border-radius: 9999px; border: none; outline: none; padding: 15px 20px; border: 2px solid #3b3b3b; background-color: #3b3b3b; text-align: center; color: #fff;}
 .form input:focus{ border: 2px solid #457dff;}
 .form .field {display: flex; flex-direction: column; gap: 5px; }
 .form .inputContainer {display: flex; flex-direction: row; gap: 5px; align-items: center;}
@@ -85,8 +80,8 @@ a {
 
 .rt60{display: flex; flex-direction: row; gap: 10px;}
 
-.button{ padding: 15px 25px; background: #457dff; border-radius: 9999px; border: 2px solid #457dff; transition: 200ms;}
-.button.disabled{ background: #43516f; border-radius: 9999px; border: 2px solid #43516f; cursor: unset;}
+.button{ padding: 15px 25px; background: #457dff; border-radius: 9999px; border: 2px solid #457dff; transition: 200ms; color: #fff;}
+.button.disabled{ background: #43516f; border-radius: 9999px; border: 2px solid #43516f; cursor: unset; color: #ccc;}
 
 .button.enabled:hover{ padding: 15px 25px; background: transparent; border-radius: 9999px; cursor: pointer;}
 
