@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "apexcharts": "^3.44.0",
+    "mathjs": "^12.1.0",
     "next": "13.5.5",
+    "plotly.js": "^2.27.1",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-plotly.js": "^2.6.0"
   },
   "devDependencies": {
     "eslint": "^8",

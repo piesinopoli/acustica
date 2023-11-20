@@ -9,6 +9,7 @@ export default function Home() {
       </div>
       <div className={styles.main}>
         <Link href={'/rtsessanta'} className={styles.button}>Calcolo RT60</Link>
+        <Link href={'/grafico'} className={styles.button}>Grafico</Link>
       </div>
     </>
 

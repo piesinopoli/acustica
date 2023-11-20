@@ -32,9 +32,10 @@ body {
     )
     rgb(var(--background-start-rgb));
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 100px 0;
+  padding: 100px 50px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 a {
@@ -52,7 +53,7 @@ a {
 .steps span.active{ color: #3b3b3b; background-color: #fff;}
 
 .formContainer {display: flex; flex-direction: row; flex-grow: 1; align-items: flex-start; width: 100%;}
-.formContainer .svgStanza {width: 300px; object-fit: contain; height: auto;}
+.svgStanza {width: 100%; object-fit: contain; height: auto;}
 .form { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;}
 .form label, .form span{ font-size: 12px; font-weight: 200;}
 .form input { border-radius: 9999px; border: none; outline: none; padding: 15px 20px; border: 2px solid #3b3b3b; background-color: #3b3b3b; text-align: center;}
@@ -83,6 +84,11 @@ a {
 .objectRow .w10{width: 10%;}
 
 .rt60{display: flex; flex-direction: row; gap: 10px;}
+
+.button{ padding: 15px 25px; background: #457dff; border-radius: 9999px; border: 2px solid #457dff; transition: 200ms;}
+.button.disabled{ background: #43516f; border-radius: 9999px; border: 2px solid #43516f; cursor: unset;}
+
+.button.enabled:hover{ padding: 15px 25px; background: transparent; border-radius: 9999px; cursor: pointer;}
 
 @media (prefers-color-scheme: dark) {
   html {
