@@ -115,20 +115,20 @@ export default function RisonanzeStanza(){
         <div className={styles.bottomContainer}>
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Assiali</div>
-            {modiAssiali.map((modo) => {
-              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            {modiAssiali.map((modo, i) => {
+              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Tangenziali</div>
-            {modiTangenziali.map((modo) => {
-              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            {modiTangenziali.map((modo, i) => {
+              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Obliqui</div>
-            {modiObliqui.map((modo) => {
-              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            {modiObliqui.map((modo, i) => {
+              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
         </div>
