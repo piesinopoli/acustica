@@ -18,7 +18,7 @@ input[type=number] {
 
 html,
 body {
-  height: 100lvh;
+  min-height: 100lvh;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -28,8 +28,6 @@ body {
   background: #121212;
   display: flex;
   flex-direction: column;
-  padding: 100px 50px;
-  max-width: 1200px;
   margin: auto;
 }
 
@@ -38,9 +36,17 @@ a {
   text-decoration: none;
 }
 
-.navbar{width: 90%; padding: 50px 0; font-size: 24px; font-weight: 200; display: flex; align-items: center; gap: 10px;}
-.navbar .navbarLink{font-weight: 200;}
-.navbar .navbarLink.active{font-weight: 400;}
+
+.navbar{padding: 50px 50px;display: flex; align-items: center; gap: 40px;}
+.navbar .navbarTitle{font-size: 22px; font-weight: 400; background-color: #3b3b3b; padding: 10px 20px; border-radius: 9999px;}
+.navbar .navbarLinks{display: flex; flex-direction: row; gap: 10px;}
+.navbar .navbarLink{font-size: 16px; font-weight: 200; }
+.navbar .navbarLink.active{font-weight: 400; text-decoration: underline;}
+
+.footer{padding: 50px 50px; display: flex; flex-direction: column; align-items: center; background-color: rgb(80 85 98 / 15%);}
+.footer span, .footer a{font-size: 12px;}
+.footer a{text-decoration: underline;}
+.mainContainer {display: flex; flex-direction: column; flex-grow: 1; width: 100%; padding: 0 50px; }
 
 .rtsessantaForm {display: flex; flex-direction: column; width: 100%; gap: 50px; align-items: center;}
 .steps {display: flex; flex-direction: row; width: fit-content; gap: 10px;  background-color: #3b3b3b; padding: 20px; border-radius: 14px; text-align: center; height: fit-content;}

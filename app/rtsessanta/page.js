@@ -32,32 +32,25 @@ export default function Rtsessanta() {
   },[room, activeStep, setDisabledBackward, setDisabledForward])
 
   return (
-    <>
-      <div className='navbar'>
-        <Link href={'/'} className='navbarLink'>Tools Acustica</Link>
-        <span> / </span>
-        <Link href={'/rtsessanta'} className='navbarLink active'>Calcolo RT60</Link>
-      </div>
-      <div className={styles.main}>
-        <div className='rtsessantaForm'>
-          <div className='steps'>
-            {steps.map((step, index) => {
-              return (<span key={index} onClick={() => (index > activeStep && !disabledForward) || (index < activeStep && !disabledBackward) ? setActiveStep(index) :null} className={index === activeStep ? "active" : undefined}> {step} </span>)
-            })}
-          </div>
-          <div className='formContainer'>
-            { activeStep === 0 && <FirstStep room={room} setRoom={setRoom}/> }
-            { activeStep === 1 && <SecondStep room={room} objects={objectsSurface} setObjects={setObjectsSurface}/> }
-            { activeStep === 2 && <ThirdStep objects={objectsVolumes} setObjects={setObjectsVolumes}/> }
-            { activeStep === 3 && <ForthStep room={room} objectsSurface={objectsSurface} objectsVolumes={objectsVolumes}/> }
-          </div>
-          <div className='arrows'>
-            <div className={`arrowLeft ${ disabledBackward ? "disabled" : undefined}`} onClick={() => !disabledBackward && setActiveStep(activeStep - 1)}><Image src={Arrow} alt=''/></div>
-            <div className={`arrowRight ${ disabledForward ? "disabled" : undefined}`} onClick={() => !disabledForward && setActiveStep(activeStep + 1)}><Image src={Arrow} alt=''/></div>
-          </div>
+    <div className={styles.main}>
+      <div className='rtsessantaForm'>
+        <div className='steps'>
+          {steps.map((step, index) => {
+            return (<span key={index} onClick={() => (index > activeStep && !disabledForward) || (index < activeStep && !disabledBackward) ? setActiveStep(index) :null} className={index === activeStep ? "active" : undefined}> {step} </span>)
+          })}
+        </div>
+        <div className='formContainer'>
+          { activeStep === 0 && <FirstStep room={room} setRoom={setRoom}/> }
+          { activeStep === 1 && <SecondStep room={room} objects={objectsSurface} setObjects={setObjectsSurface}/> }
+          { activeStep === 2 && <ThirdStep objects={objectsVolumes} setObjects={setObjectsVolumes}/> }
+          { activeStep === 3 && <ForthStep room={room} objectsSurface={objectsSurface} objectsVolumes={objectsVolumes}/> }
+        </div>
+        <div className='arrows'>
+          <div className={`arrowLeft ${ disabledBackward ? "disabled" : undefined}`} onClick={() => !disabledBackward && setActiveStep(activeStep - 1)}><Image src={Arrow} alt=''/></div>
+          <div className={`arrowRight ${ disabledForward ? "disabled" : undefined}`} onClick={() => !disabledForward && setActiveStep(activeStep + 1)}><Image src={Arrow} alt=''/></div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

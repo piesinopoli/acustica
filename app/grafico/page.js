@@ -11,10 +11,16 @@ import Profondita from '../assets/Profondita.svg'
 
 import Image from 'next/image';
 
+import Slider from '@mui/joy/Slider';
+
+
 export default function RisonanzeStanza(){
   const [ room, setRoom ] = useState({x: '', y: '', z: ''});
   const [ rt60, setRt60 ] = useState(0.33);
 
+  const [ modiAssiali, setModiAssiali ] = useState([]);
+  const [ modiTangenziali, setModiTangenziali ] = useState([]);
+  const [ modiObliqui, setModiObliqui ] = useState([]);
   const [ data, setData ] = useState([]);
 
   const soundSpeed = 340;
@@ -25,9 +31,9 @@ export default function RisonanzeStanza(){
     if (volumeRoom && rt60){
       const fineRegioneB = 1875 * Math.sqrt(rt60/volumeRoom);
 
-      const modiAssiali = [];
-      const modiTangenziali = [];
-      const modiObliqui = [];
+      const modiAssialiToSet = [];
+      const modiTangenzialiToSet = [];
+      const modiObliquiToSet = [];
 
       for (let i = 0; i < 10; i++){
         for (let j = 0; j < 10; j++){
@@ -37,7 +43,7 @@ export default function RisonanzeStanza(){
 
             if ((frequency < fineRegioneB)) {
               if ((i != 0 && j == 0 && k == 0) || (i == 0 && j != 0 && k == 0) || (i == 0 && j == 0 && k != 0)){
-                modiAssiali.push({frequency: frequency, db: 100/(i + j + k)});
+                modiAssialiToSet.push({frequency: frequency, db: 100/(i + j + k)});
               }
               if ((i != 0 && j != 0 && k == 0) || (i != 0 && j == 0 && k != 0) || (i == 0 && j != 0 && k != 0)){
                 if ( i === j || j === k || i === k ){
@@ -48,7 +54,7 @@ export default function RisonanzeStanza(){
 
                   ampiezza = numSucc + (numSucc / media);
                 }
-                modiTangenziali.push({frequency: frequency, db: ampiezza});
+                modiTangenzialiToSet.push({frequency: frequency, db: ampiezza});
               }
               if (i != 0 && j != 0 && k != 0) {
                 if ( i == j == k ){
@@ -59,14 +65,28 @@ export default function RisonanzeStanza(){
 
                   ampiezza = numSucc + (numSucc / media);
                 }
-                modiObliqui.push({frequency: frequency, db: ampiezza});
+                modiObliquiToSet.push({frequency: frequency, db: ampiezza});
               }
             }
           }
         }
       }
 
-      const allModi = modiAssiali.concat(modiTangenziali, modiObliqui);
+      modiAssialiToSet.sort(function(a, b) {
+        return a.frequency - b.frequency;
+      });
+      modiTangenzialiToSet.sort(function(a, b) {
+        return a.frequency - b.frequency;
+      });
+      modiObliquiToSet.sort(function(a, b) {
+        return a.frequency - b.frequency;
+      });
+
+      setModiAssiali(modiAssialiToSet);
+      setModiTangenziali(modiTangenzialiToSet);
+      setModiObliqui(modiObliquiToSet);
+
+      const allModi = modiAssialiToSet.concat(modiTangenzialiToSet, modiObliquiToSet);
 
       const dataToSet = [];
       const campanatura = 2.2 / rt60;
@@ -82,13 +102,37 @@ export default function RisonanzeStanza(){
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.leftContainer}>
-        <FormRoom room={room} setRoom={setRoom} rt60={rt60} setRt60={setRt60}/>
-        <button onClick={handleClick} className={`button ${(!room.x || !room.y || !room.z || !rt60) ? "disabled" : "enabled"}`} disabled={!room.x || !room.y || !room.z || !rt60}>Calcolo</button>
+      <div className={styles.topContainer}>
+        <div className={styles.leftContainer}>
+          <FormRoom room={room} setRoom={setRoom} rt60={rt60} setRt60={setRt60}/>
+          <button onClick={handleClick} className={`button ${(!room.x || !room.y || !room.z || !rt60) ? "disabled" : "enabled"}`} disabled={!room.x || !room.y || !room.z || !rt60}>Calcolo</button>
+        </div>
+        <div className={styles.rightContainer}>
+          {data.length > 0 ? <Grafico data={data}/> : <span className={styles.error}>Inserisci tutti i dati per visualizzare il grafico</span>}
+        </div>
       </div>
-      <div className={styles.rightContainer}>
-        {data.length > 0 ? <Grafico data={data}/> : <span className={styles.error}>Inserisci tutti i dati per visualizzare il grafico</span>}
-      </div>
+      {data.length > 0 &&
+        <div className={styles.bottomContainer}>
+          <div className={styles.modo}>
+            <div className={styles.modoTitle}>Modi Assiali</div>
+            {modiAssiali.map((modo) => {
+              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            })}
+          </div>
+          <div className={styles.modo}>
+            <div className={styles.modoTitle}>Modi Tangenziali</div>
+            {modiTangenziali.map((modo) => {
+              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            })}
+          </div>
+          <div className={styles.modo}>
+            <div className={styles.modoTitle}>Modi Obliqui</div>
+            {modiObliqui.map((modo) => {
+              return <span>{Math.round(modo.frequency * 100) / 100} Hz</span>
+            })}
+          </div>
+        </div>
+      }
     </div>
   )
 }
@@ -142,6 +186,7 @@ function FormRoom(props){
 
 function Grafico(props) {
   const [chartData, setChartData] = useState([]);
+  const [ resolution, setResolution ] = useState(1000);
 
   useEffect(() => {
     const data = props.data;
@@ -149,7 +194,7 @@ function Grafico(props) {
     const startTimes = data.map(([start]) => start);
     const endTimes = data.map(([_, end]) => end);
 
-    const totalPoints = 10000;
+    const totalPoints = resolution;
     const xValues = Array.from({ length: totalPoints }, (_, i) =>
       Math.pow(10, (Math.log10(Math.min(...startTimes)) + i / totalPoints * (Math.log10(Math.max(...endTimes)) - Math.log10(Math.min(...startTimes)))))
     );
@@ -170,14 +215,14 @@ function Grafico(props) {
         x: xValues,
         y: sumAmplitudesLog,
         type: 'bar',
-        marker: { color: 'lightblue', width: 1 },
+        marker: { color: '#457dff', width: 1 },
       },
     ]);
 
-  }, [props.data]);
+  }, [props.data, resolution]);
 
   return (
-    <div>
+    <>
       <Plot
         data={chartData}
         layout={{
@@ -189,8 +234,21 @@ function Grafico(props) {
             title: 'Ampiezza',
           },
           title: 'Grafico frequenze con ampiezze sommate',
+          width: 600,
+          height: 400,
         }}
       />
-    </div>
+      <div className={styles.resolution}>
+        <span>Risoluzione</span>
+        <Slider
+          value={resolution}
+          step={50}
+          min={10}
+          max={1000}
+          onChange={(event, value) => setResolution(value)}
+        />
+      </div>
+
+    </>
   );
 };

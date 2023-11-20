@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/joy": "^5.0.0-beta.15",
     "apexcharts": "^3.44.0",
     "mathjs": "^12.1.0",
     "next": "13.5.5",
