@@ -376,8 +376,8 @@ function ForthStep(props){
         <div className={styles.rt60TextContainer}>
           <div className={styles.miniTitle}>RT60</div>
           <div className={styles.rt60Text}>
-            {rt60.length > 0 && rt60.map((single) =>{
-              return <span>{single.f}Hz: <strong>{single.s}s</strong></span>
+            {rt60.length > 0 && rt60.map((single, index) =>{
+              return <span key={index}>{single.f}Hz: <strong>{single.s}s</strong></span>
             })}
           </div>
         </div>
