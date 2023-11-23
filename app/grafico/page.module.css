@@ -1,7 +1,7 @@
 .mainContainer{ display: flex; flex-direction: column; gap: 100px; align-self: center; margin-bottom: 50px;}
 .topContainer{ display: flex; flex-direction: row; gap: 100px; align-self: center;}
 .bottomContainer{ display: flex; flex-direction: row; gap: 50px; align-self: center; }
-.leftContainer{ width: fit-content; display: flex; flex-direction: column; gap: 25px;}
+.leftContainer{ width: fit-content; display: flex; flex-direction: column; gap: 25px; position: sticky; top: 0;}
 .rightContainer{ display: flex; flex-direction: column; align-items: center; justify-content: center; width: 600px; gap: 20px;}
 
 .error{font-size: 16px; font-weight: 400; background-color: #3b3b3b; padding: 25px; border-radius: 18px;}
@@ -12,3 +12,7 @@
 
 .modo{display: flex; flex-direction: column; gap: 5px;}
 .modoTitle{font-size: 18px; font-weight: 600; margin-bottom: 10px;}
+
+.miniPopup{display: none; position: absolute; transform: translateY(-100%); flex-direction: row; align-items: center; gap: 10px; background: #fff3cd; padding: 10px; border-radius: 4px; font-size: 10px !important; color: #856404; font-weight: 700;}
+.openPopup{display: flex;}
+.closePopup{font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; background: #856404; border-radius: 9999px; width: 20px; aspect-ratio: 1; color: #fff3cd; font-style: normal; }

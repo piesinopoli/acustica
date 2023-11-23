@@ -48,27 +48,13 @@ a {
 .footer a{text-decoration: underline;}
 .mainContainer {display: flex; flex-direction: column; flex-grow: 1; width: 100%; padding: 0 50px; }
 
-.rtsessantaForm {display: flex; flex-direction: column; width: 100%; gap: 50px; align-items: center;}
-.steps {display: flex; flex-direction: row; width: fit-content; gap: 10px;  background-color: #3b3b3b; padding: 20px; border-radius: 14px; text-align: center; height: fit-content;}
-.steps span{ cursor: pointer; padding: 5px; border-radius: 5px; }
-.steps span.active{ color: #3b3b3b; background-color: #fff;}
-
-.formContainer {display: flex; flex-direction: row; flex-grow: 1; align-items: flex-start; width: 100%;}
 .svgStanza {width: 100%; object-fit: contain; height: auto;}
 .form { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;}
-.form label, .form span{ font-size: 12px; font-weight: 200;}
+.form label, .form span{ font-size: 12px; font-weight: 200; display: flex;gap: 10px; align-items: center; position: relative;}
 .form input { border-radius: 9999px; border: none; outline: none; padding: 15px 20px; border: 2px solid #3b3b3b; background-color: #3b3b3b; text-align: center; color: #fff;}
 .form input:focus{ border: 2px solid #457dff;}
 .form .field {display: flex; flex-direction: column; gap: 5px; }
 .form .inputContainer {display: flex; flex-direction: row; gap: 5px; align-items: center;}
-
-.arrows{width: 50%; display: flex; justify-content: space-between; margin: 20px 0;}
-.arrows .arrowLeft, .arrows .arrowRight {width: 60px; padding: 10px; border-radius: 9999px; background: #457dff; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; transition: 200ms; cursor: pointer;}
-.arrows .arrowLeft.disabled, .arrows .arrowRight.disabled{background-color: #505562; cursor: unset;}
-.arrows .arrowLeft {transform: rotate(180deg);}
-.arrows img{width: 60%; height: 60%; }
-
-.room {display: flex; flex-direction: row; width: 100%; gap: 25px;}
 
 .objects{display: flex; flex-direction: column; width: 100%; align-items: center; gap: 25px;}
 .addRowButtons {display: flex; flex-direction: row; gap: 25px; align-items: center;}
@@ -83,8 +69,6 @@ a {
 .objectRow input.w10{background-color: #795959; border-color: #795959;}
 .objectRow .w15{width: 15%;}
 .objectRow .w10{width: 10%;}
-
-.rt60{display: flex; flex-direction: row; gap: 10px;}
 
 .button{ padding: 15px 25px; background: #457dff; border-radius: 9999px; border: 2px solid #457dff; transition: 200ms; color: #fff;}
 .button.disabled{ background: #43516f; border-radius: 9999px; border: 2px solid #43516f; cursor: unset; color: #ccc;}

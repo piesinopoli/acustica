@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 const menuItems = [
   {url: "/", name: "Home"},
-  // {url: "/rtsessanta", name: "RT60"},
+  {url: "/rtsessanta", name: "RT60"},
   {url: "/grafico", name: "Grafico"}
 ]
 /* Componente Header (si trova in layout principale) */

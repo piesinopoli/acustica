@@ -1,4 +1,20 @@
 
-.main{ display: flex; flex-direction: column; width: 90%; max-width: 1400px;}
-.button{ padding: 15px 25px; background: #457dff; border-radius: 9999px; border: 2px solid #457dff; transition: 200ms;}
-.button:hover{ padding: 15px 25px; background: transparent; border-radius: 9999px; }
+.main{ display: flex; flex-direction: column; align-items: center;}
+.formContainer {display: flex; flex-direction: row; flex-grow: 1; justify-content: center; width: 100%; margin: 20px 0;}
+.roomContainer{ width: 200px;}
+
+.steps {display: flex; flex-direction: row; width: fit-content; gap: 10px;  background-color: #3b3b3b; padding: 20px; border-radius: 14px; text-align: center; height: fit-content;}
+.steps span{ cursor: pointer; padding: 5px; border-radius: 5px; }
+.steps span.active{ color: #3b3b3b; background-color: #fff;}
+
+.arrows{width: 50%; display: flex; justify-content: space-between; margin: 20px 0;}
+.arrows .arrowLeft, .arrows .arrowRight {width: 60px; padding: 10px; border-radius: 9999px; background: #457dff; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; transition: 200ms; cursor: pointer;}
+.arrows .arrowLeft.disabled, .arrows .arrowRight.disabled{background-color: #505562; cursor: unset;}
+.arrows .arrowLeft {transform: rotate(180deg);}
+.arrows img{width: 60%; height: 60%; }
+
+.bottomContainer{display: flex; flex-direction: row; gap: 50px;}
+.rt60Container{display: flex; flex-direction: column; gap: 50px;}
+.rt60TextContainer{display: flex; flex-direction: column; }
+.rt60Text{display: flex; flex-direction: column; gap: 15px;}
+.miniTitle{font-size: 18px; font-weight: 600; margin-bottom: 10px;}

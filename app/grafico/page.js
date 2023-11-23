@@ -1,4 +1,5 @@
 'use client'
+import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 import { useEffect, useState } from 'react';
@@ -15,6 +16,8 @@ import Slider from '@mui/joy/Slider';
 
 
 export default function RisonanzeStanza(){
+  const [dataLoaded, setDataLoaded] = useState(false);
+
   const [ room, setRoom ] = useState({x: '', y: '', z: ''});
   const [ rt60, setRt60 ] = useState(0.33);
 
@@ -93,6 +96,9 @@ export default function RisonanzeStanza(){
       allModi.forEach((modo) => {
         dataToSet.push([modo.frequency - (campanatura / 2), modo.frequency + (campanatura / 2), modo.db])
       })
+
+      Cookies.set('room', JSON.stringify(room));
+      Cookies.set('rt60', rt60.toString());     
     
       setData(dataToSet);
     } else {
@@ -100,6 +106,24 @@ export default function RisonanzeStanza(){
     }
   }
 
+  useEffect(() => {
+    const savedRoom = Cookies.get('room');
+    const savedRt60 = Cookies.get('rt60');
+
+    if (savedRoom) setRoom(JSON.parse(savedRoom));
+    if (savedRt60) setRt60(parseFloat(savedRt60));
+    if (savedRoom || savedRt60) setDataLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (dataLoaded) {
+      handleClick();
+      setDataLoaded(false);
+    }
+  }, [dataLoaded, room, rt60]);
+
+  const allModi =  modiAssiali.concat(modiTangenziali, modiObliqui);
+  
   return (
     <div className={styles.mainContainer}>
       <div className={styles.topContainer}>
@@ -108,7 +132,8 @@ export default function RisonanzeStanza(){
           <button onClick={handleClick} className={`button ${(!room.x || !room.y || !room.z || !rt60) ? "disabled" : "enabled"}`} disabled={!room.x || !room.y || !room.z || !rt60}>Calcolo</button>
         </div>
         <div className={styles.rightContainer}>
-          {data.length > 0 ? <Grafico data={data}/> : <span className={styles.error}>Inserisci tutti i dati per visualizzare il grafico</span>}
+          {data.length > 0 ? <GraficoSomme data={data}/> : <span className={styles.error}>Inserisci tutti i dati per visualizzare il grafico</span>}
+          {allModi.length > 0 && <GraficoSingole data={allModi}/>}
         </div>
       </div>
       {data.length > 0 &&
@@ -140,6 +165,7 @@ export default function RisonanzeStanza(){
 
 function FormRoom(props){
   const [ selectedInput, setSelectedInput ] = useState(0);
+  const [ openMiniPopup, setOpenMiniPopup ] = useState(false);
 
   const handleInput = (dimension) => {
     return (event) => {
@@ -173,7 +199,11 @@ function FormRoom(props){
           </div>
         </div>
         <div className='field'>
-          <label>RT60 Medio</label>
+          <label>RT60 Medio <i className={styles.closePopup} onClick={() => setOpenMiniPopup(!openMiniPopup)}>ⓘ</i>
+            <div className={`${styles.miniPopup} ${openMiniPopup && styles.openPopup}`}>
+              <div>Inserisci il tuo valore reale</div>
+            </div>
+          </label>
           <div className='inputContainer'>
             <input onChange={(event) => props.setRt60(event.target.value)}  value={props.rt60} type='number'/>
             <span>s</span>
@@ -184,7 +214,7 @@ function FormRoom(props){
   )
 }
 
-function Grafico(props) {
+function GraficoSomme(props) {
   const [chartData, setChartData] = useState([]);
   const [ resolution, setResolution ] = useState(1000);
 
@@ -215,7 +245,7 @@ function Grafico(props) {
         x: xValues,
         y: sumAmplitudesLog,
         type: 'bar',
-        marker: { color: '#457dff', width: 1 },
+        marker: { color: '#457dff' },
       },
     ]);
 
@@ -233,7 +263,7 @@ function Grafico(props) {
           yaxis: {
             title: 'Ampiezza',
           },
-          title: 'Grafico frequenze con ampiezze sommate',
+          title: 'Grafico con campanatura e ampiezza sommata',
           width: 600,
           height: 400,
         }}
@@ -249,6 +279,56 @@ function Grafico(props) {
         />
       </div>
 
+    </>
+  );
+}
+
+function GraficoSingole(props) {
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    const data = props.data;
+
+    let xValues = [];
+    let yValues = [];
+    data.forEach((single) => {
+      xValues.push(single.frequency);
+      yValues.push(single.db)
+    })
+
+    let sumAmplitudesLog = [];
+    yValues.forEach((amplitude) => {
+      sumAmplitudesLog.push(20 * Math.log10(amplitude));
+    })
+
+    setChartData([
+      {
+        x: xValues,
+        y: sumAmplitudesLog,
+        type: 'bar',
+        marker: { color: '#457dff'},
+      },
+    ]);
+
+  }, [props.data]);
+
+  return (
+    <>
+      <Plot
+        data={chartData}
+        layout={{
+          xaxis: {
+            type: 'log',
+            title: 'Frequenza (Hz)',
+          },
+          yaxis: {
+            title: 'Ampiezza',
+          },
+          title: 'Grafico singoli modi',
+          width: 600,
+          height: 400,
+        }}
+      />
     </>
   );
 };
