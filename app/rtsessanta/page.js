@@ -329,7 +329,7 @@ function ForthStep(props){
     const objectSurfaceSum500 = props.objectsVolumes.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c500), 0) + props.objectsSurface.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c500), 0);
     const objectSurfaceSum1000 = props.objectsVolumes.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c1000), 0) + props.objectsSurface.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c1000), 0);
     const objectSurfaceSum2000 = props.objectsVolumes.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c2000), 0) + props.objectsSurface.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c2000), 0);
-    const objectSurfaceSum4000 = props.objectsVolumes.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c2000), 0) + props.objectsSurface.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c4000), 0);
+    const objectSurfaceSum4000 = props.objectsVolumes.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c4000), 0) + props.objectsSurface.reduce((accumulator, object) => accumulator + Number(object.surface) * Number(object.c4000), 0);
 
     const rt125 = Math.round((sabine * emptySapceRoom) / (objectSurfaceSum125) * 100) / 100;
     const rt250 = Math.round((sabine * emptySapceRoom) / (objectSurfaceSum250) * 100) / 100;
