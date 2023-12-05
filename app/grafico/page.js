@@ -46,7 +46,7 @@ export default function RisonanzeStanza(){
 
             if ((frequency < fineRegioneB)) {
               if ((i != 0 && j == 0 && k == 0) || (i == 0 && j != 0 && k == 0) || (i == 0 && j == 0 && k != 0)){
-                modiAssialiToSet.push({frequency: frequency, db: 100/(i + j + k)});
+                modiAssialiToSet.push({i: i, j: j, k: k, frequency: frequency, db: 100/(i + j + k)});
               }
               if ((i != 0 && j != 0 && k == 0) || (i != 0 && j == 0 && k != 0) || (i == 0 && j != 0 && k != 0)){
                 if ( i === j || j === k || i === k ){
@@ -57,7 +57,7 @@ export default function RisonanzeStanza(){
 
                   ampiezza = numSucc + (numSucc / media);
                 }
-                modiTangenzialiToSet.push({frequency: frequency, db: ampiezza});
+                modiTangenzialiToSet.push({i: i, j: j, k: k, frequency: frequency, db: ampiezza});
               }
               if (i != 0 && j != 0 && k != 0) {
                 if ( i == j == k ){
@@ -68,7 +68,7 @@ export default function RisonanzeStanza(){
 
                   ampiezza = numSucc + (numSucc / media);
                 }
-                modiObliquiToSet.push({frequency: frequency, db: ampiezza});
+                modiObliquiToSet.push({i: i, j: j, k: k, frequency: frequency, db: ampiezza});
               }
             }
           }
@@ -141,19 +141,19 @@ export default function RisonanzeStanza(){
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Assiali</div>
             {modiAssiali.map((modo, i) => {
-              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
+              return <span key={i}>({modo.i} {modo.j} {modo.k}) {Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Tangenziali</div>
             {modiTangenziali.map((modo, i) => {
-              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
+              return <span key={i}>({modo.i} {modo.j} {modo.k}) {Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
           <div className={styles.modo}>
             <div className={styles.modoTitle}>Modi Obliqui</div>
             {modiObliqui.map((modo, i) => {
-              return <span key={i}>{Math.round(modo.frequency * 100) / 100} Hz</span>
+              return <span key={i}>({modo.i} {modo.j} {modo.k}) {Math.round(modo.frequency * 100) / 100} Hz</span>
             })}
           </div>
         </div>
